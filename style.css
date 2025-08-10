@@ -63,5 +63,5 @@ button {
   border: 0.5mm solid lightgreen;
   display: block;
   margin: 8px auto;
-  max-height: 640px; /* เดิม 320px → เพิ่มอีก 1 เท่า */
+  max-height: 960px; /* เดิม 640px → เพิ่มเป็น 960px */
 }
