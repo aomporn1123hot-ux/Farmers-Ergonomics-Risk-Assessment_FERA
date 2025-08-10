@@ -150,7 +150,7 @@ document.getElementById("resultText").textContent = `คะแนนรวม: $
   showPage(5);
 });
 window.onload = () => {
-  createImageOptions("upperPostureOptions", "upperPosture", 10, "ส่วนบน");
-  createImageOptions("lowerPostureOptions", "lowerPosture", 8, "ส่วนล่าง");
+  createImageOptions("upperPostureOptions", "upperPosture", 10, "บน");
+  createImageOptions("lowerPostureOptions", "lowerPosture", 8, "ล่าง");
   showPage(0);
 };
