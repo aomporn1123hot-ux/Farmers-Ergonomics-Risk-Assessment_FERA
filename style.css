@@ -63,5 +63,5 @@ button {
   border: 0.5mm solid lightgreen;
   display: block;
   margin: 8px auto;
-  max-height: 720px; /* เดิม 320px → ขยาย */
+  max-height: 720px; /* ขยายใหญ่กว่าของเดิม 480px แต่ไม่ถึง 960px */
 }
