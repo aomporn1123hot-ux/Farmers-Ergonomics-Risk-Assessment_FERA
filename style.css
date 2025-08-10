@@ -2,19 +2,19 @@ body {
   font-family: "sans-serif";
   margin: 16px;
   background-color: #f9f9f9;
-  font-size: 32px; /* ขยายตัวหนังสือ 2 เท่า */
+  font-size: 32px; /* เดิม 16px → เพิ่มอีก 1 เท่า */
 }
 
 .cover-img {
   width: 100%;
-  max-width: 480px; /* เดิม 360px → ขยาย */
+  max-width: 560px; /* เดิม 480px → ขยายเล็กน้อย */
   display: block;
   margin: auto;
 }
 
 h2 {
   color: #2a4d4d;
-  font-size: 40px; /* เดิม 20px → ขยาย 2 เท่า */
+  font-size: 40px; /* เดิม 20px → เพิ่มอีก 1 เท่า */
 }
 
 .page {
@@ -35,10 +35,10 @@ h2 {
 .image-option {
   border: 0.5mm solid lightgreen;
   padding: 4px;
-  width: 32%;
+  width: 32%; /* คง 3 รูปต่อ 1 แถว */
   box-sizing: border-box;
   text-align: center;
-  font-size: 28px; /* ขยายตัวอักษร */
+  font-size: 28px; /* เดิม 14px → เพิ่มอีก 1 เท่า */
 }
 
 .image-option img {
@@ -52,9 +52,9 @@ h2 {
 }
 
 button {
-  padding: 16px 32px; /* ขยายปุ่ม */
+  padding: 16px 32px; /* เดิม 8px 16px → เพิ่มอีก 1 เท่า */
   margin: 4px;
-  font-size: 32px; /* ขยายตัวหนังสือปุ่ม */
+  font-size: 32px; /* เดิม 16px → เพิ่มอีก 1 เท่า */
 }
 
 #resultImage {
@@ -63,5 +63,5 @@ button {
   border: 0.5mm solid lightgreen;
   display: block;
   margin: 8px auto;
-  max-height: 480px;
+  max-height: 640px; /* เดิม 320px → เพิ่มอีก 1 เท่า */
 }
