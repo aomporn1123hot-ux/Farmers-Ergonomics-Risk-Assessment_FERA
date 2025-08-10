@@ -96,15 +96,17 @@ form.addEventListener("submit", function (e) {
     return el ? parseInt(el.value) : 0;
   };
 
-  const upScore = 1;
+  const upScore = 1;  // ข้อ 1: ให้ 1 คะแนนตายตัว
   const ut = getVal("upperTime");
-  const lowScore = 1;
+
+  const lowScore = 1; // ข้อ 3: ให้ 1 คะแนนตายตัว
   const lt = getVal("lowerTime");
 
   const f = getVal("force");
   const r = getVal("repetition");
   const t = getVal("twist");
 
+  // upperMap & lowerMap สำหรับข้อ 2 และข้อ 4
   const upperMap = {
     1: [0, 0, 1, 2], 2: [0, 0, 1, 2], 3: [1, 2, 3], 4: [1, 2, 3],
     5: [2, 3], 6: [2, 3], 7: [2, 3], 8: [3], 9: [3], 10: [3]
@@ -140,13 +142,15 @@ form.addEventListener("submit", function (e) {
     image = "สูงมาก.jpg";
   }
 
-  document.getElementById("resultText").textContent = `คะแนนรวม: ${total} (${level})`;
+document.getElementById("resultText").textContent = `คะแนนรวม: ${total} (${level})`;
+document.getElementById("resultImage").src = image;
+
+document.getElementById("resultText").textContent = `คะแนนรวม: ${total} (${level})`;
   document.getElementById("resultImage").src = image;
   showPage(5);
 });
-
 window.onload = () => {
-  createImageOptions("upperPostureOptions", "upperPosture", 10, "บน");
-  createImageOptions("lowerPostureOptions", "lowerPosture", 8, "ล่าง");
+  createImageOptions("upperPostureOptions", "upperPosture", 10, "ส่วนบน");
+  createImageOptions("lowerPostureOptions", "lowerPosture", 8, "ส่วนล่าง");
   showPage(0);
 };
