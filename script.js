@@ -150,3 +150,28 @@ window.onload = () => {
   createImageOptions("lowerPostureOptions", "lowerPosture", 8, "ล่าง");
   showPage(0);
 };
+// โค้ด Firebase ที่เพิ่มเข้าไป
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+
+// Config ของ Firebase
+const firebaseConfig = {
+  apiKey: "AIzaSyBZMJ6Xv6Nsy_f7Kb3SnK4soS0m3PkCgFc",
+  authDomain: "fera-38125.firebaseapp.com",
+  projectId: "fera-38125",
+  storageBucket: "fera-38125.firebasestorage.app",
+  messagingSenderId: "281508827972",
+  appId: "1:281508827972:web:96f6b7481637194533fd11",
+  measurementId: "G-M9R0MFJLQ5"
+};
+
+// ตรวจสอบว่ามีการ initialize app แล้วหรือยัง (ป้องกัน initialize ซ้ำ)
+let app;
+try {
+  app = initializeApp(firebaseConfig);
+} catch (err) {
+  console.log("Firebase app already initialized");
+}
+
+// เรียกใช้ Analytics (ถ้าต้องการ)
+const analytics = getAnalytics(app);
