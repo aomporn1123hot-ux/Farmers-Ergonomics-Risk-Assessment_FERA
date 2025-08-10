@@ -150,3 +150,39 @@ window.onload = () => {
   createImageOptions("lowerPostureOptions", "lowerPosture", 8, "ล่าง");
   showPage(0);
 };
+
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+import { getFirestore, collection, addDoc } from "firebase/firestore";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBZMJ6Xv6Nsy_f7Kb3SnK4soS0m3PkCgFc",
+  authDomain: "fera-38125.firebaseapp.com",
+  projectId: "fera-38125",
+  storageBucket: "fera-38125.firebasestorage.app",
+  messagingSenderId: "281508827972",
+  appId: "1:281508827972:web:96f6b7481637194533fd11",
+  measurementId: "G-M9R0MFJLQ5"
+};
+
+const app = initializeApp(firebaseConfig);
+getAnalytics(app);
+const db = getFirestore(app);
+
+async function saveDataToFirestore(data) {
+  try {
+    const docRef = await addDoc(collection(db, "responses"), data);
+    console.log("Document written with ID:", docRef.id);
+  } catch (e) {
+    console.error("Error adding document:", e);
+  }
+}
+
+const formData = {
+  name: "สมชาย",
+  age: 30,
+  answer1: "เลือกข้อ 2",
+  timestamp: new Date()
+};
+
+saveDataToFirestore(formData);
