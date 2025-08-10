@@ -150,7 +150,6 @@ window.onload = () => {
   createImageOptions("lowerPostureOptions", "lowerPosture", 8, "ล่าง");
   showPage(0);
 };
-// โค้ด Firebase ที่เพิ่มเข้าไป
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 
