@@ -1,25 +1,3 @@
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-  apiKey: "AIzaSyBZMJ6Xv6Nsy_f7Kb3SnK4soS0m3PkCgFc",
-  authDomain: "fera-38125.firebaseapp.com",
-  projectId: "fera-38125",
-  storageBucket: "fera-38125.firebasestorage.app",
-  messagingSenderId: "281508827972",
-  appId: "1:281508827972:web:96f6b7481637194533fd11",
-  measurementId: "G-M9R0MFJLQ5"
-};
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
-
 const form = document.getElementById("assessmentForm");
 const pages = document.querySelectorAll(".page");
 let currentPageIndex = 0;
@@ -172,3 +150,25 @@ window.onload = () => {
   createImageOptions("lowerPostureOptions", "lowerPosture", 8, "ล่าง");
   showPage(0);
 };
+
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyBZMJ6Xv6Nsy_f7Kb3SnK4soS0m3PkCgFc",
+  authDomain: "fera-38125.firebaseapp.com",
+  projectId: "fera-38125",
+  storageBucket: "fera-38125.firebasestorage.app",
+  messagingSenderId: "281508827972",
+  appId: "1:281508827972:web:96f6b7481637194533fd11",
+  measurementId: "G-M9R0MFJLQ5"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
