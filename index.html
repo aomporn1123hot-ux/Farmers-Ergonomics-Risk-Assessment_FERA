@@ -6,24 +6,31 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <img src="ภาพปก.png" alt="ภาพปก" class="cover-img">
-
   <form id="assessmentForm">
-    <!-- หน้า 0 -->
-    <div class="page active" id="page0">
-      <h2>ข้อ 1: เลือกท่าทางการทำงานส่วนบน</h2>
+
+    <!-- หน้า Intro -->
+    <div class="page active" id="introPage">
+      <img src="เครื่องมือ.png" alt="เครื่องมือ" class="intro-img">
+      <div class="nav-buttons">
+        <button type="button" class="start-btn" onclick="startAssessment()">เริ่มการประเมิน</button>
+      </div>
+    </div>
+
+    <!-- หน้า 1: ข้อ 1 -->
+    <div class="page" id="page1">
+      <h2>ข้อ 1: ประเมินส่วนบน (คอ ไหล่ แขน มือ และหลังส่วนบน)</h2>
       <div id="upperPostureOptions" class="image-grid"></div>
       <div class="nav-buttons">
         <button type="button" onclick="nextUpperTimePage()">ถัดไป</button>
       </div>
     </div>
 
-    <!-- หน้า 1: ข้อ 2 -->
-    <div class="page" id="page1"></div>
+    <!-- หน้า 2: ข้อ 2 -->
+    <div class="page" id="page2"></div>
 
-    <!-- หน้า 2: ข้อ 3 -->
-    <div class="page" id="page2">
-      <h2>ข้อ 3: เลือกท่าทางการทำงานส่วนล่าง</h2>
+    <!-- หน้า 3: ข้อ 3 -->
+    <div class="page" id="page3">
+      <h2>ข้อ 3: ประเมินส่วนล่าง (หลังส่วนล่าง ขา และเท้า)</h2>
       <div id="lowerPostureOptions" class="image-grid"></div>
       <div class="nav-buttons">
         <button type="button" onclick="prevPage()">ย้อนกลับ</button>
@@ -31,11 +38,11 @@
       </div>
     </div>
 
-    <!-- หน้า 3: ข้อ 4 -->
-    <div class="page" id="page3"></div>
+    <!-- หน้า 4: ข้อ 4 -->
+    <div class="page" id="page4"></div>
 
-    <!-- หน้า 4: ข้อ 5-7 -->
-    <div class="page" id="page4">
+    <!-- หน้า 5: ข้อ 5-7 -->
+    <div class="page" id="page5">
       <h2>ข้อ 5: การออกแรง</h2>
       <label><input type="radio" name="force" value="1"> น้อยกว่า 5 กิโลกรัม</label><br>
       <label><input type="radio" name="force" value="2"> 5–10 กิโลกรัม</label><br>
@@ -51,16 +58,17 @@
 
       <div class="nav-buttons">
         <button type="button" onclick="prevPage()">ย้อนกลับ</button>
-        <button type="submit">ประมวลผล</button>
+        <button type="button" onclick="calculateResult()">ประมวลผล</button>
       </div>
     </div>
 
-    <!-- หน้า 5: แสดงผล -->
-    <div class="page" id="page5">
+    <!-- หน้า 6: ผลลัพธ์ -->
+    <div class="page" id="page6">
       <h2>ผลการประเมิน</h2>
       <p id="resultText"></p>
       <img id="resultImage" src="" alt="ผลการประเมิน">
     </div>
+
   </form>
 
   <script src="script.js"></script>
