@@ -1,38 +1,51 @@
-const form = document.getElementById("assessmentForm");
 const pages = document.querySelectorAll(".page");
 let currentPageIndex = 0;
 
+// แสดงหน้าปัจจุบัน
 function showPage(index) {
-  pages.forEach((p, i) => p.classList.toggle("active", i === index));
   currentPageIndex = index;
+  pages.forEach((p, i) => p.classList.toggle("active", i === index));
 }
 
-function nextPage() {
-  if (currentPageIndex < pages.length - 1) showPage(currentPageIndex + 1);
-}
-
+// หน้า ก่อนหน้า
 function prevPage() {
   if (currentPageIndex > 0) showPage(currentPageIndex - 1);
 }
 
+// สร้างตัวเลือกภาพ
 function createImageOptions(containerId, name, count, prefix) {
   const container = document.getElementById(containerId);
+  container.innerHTML = "";
   for (let i = 1; i <= count; i++) {
-    const label = document.createElement("label");
+    const label = document.createElement("div");
     label.className = "image-option";
     label.innerHTML = `
       <input type="radio" name="${name}" value="${i}">
       <img src="${prefix}${i}.png" alt="${prefix}${i}">
+      <div class="checkmark">✔</div>
     `;
+    label.addEventListener("click", () => {
+      document.querySelectorAll(`#${containerId} .image-option`).forEach(opt => opt.classList.remove("selected"));
+      label.classList.add("selected");
+      label.querySelector("input").checked = true;
+    });
     container.appendChild(label);
   }
 }
 
+// เริ่มประเมิน
+function startAssessment() {
+  createImageOptions("upperPostureOptions", "upperPosture", 10, "บน");
+  createImageOptions("lowerPostureOptions", "lowerPosture", 8, "ล่าง");
+  showPage(1); // ไปข้อ 1
+}
+
+// ข้อ 1 → ข้อ 2
 function nextUpperTimePage() {
   const selected = document.querySelector('input[name="upperPosture"]:checked');
   if (!selected) return alert("กรุณาเลือกท่าทางส่วนบน");
-  const val = parseInt(selected.value);
 
+  const val = parseInt(selected.value);
   const labels = {
     1: ["1-2 นาที", "3-7 นาที", "8-18 นาที", "17 นาที"],
     2: ["1 นาที", "2-6 นาที", "7-13 นาที", "14 นาที"],
@@ -46,7 +59,7 @@ function nextUpperTimePage() {
     10: ["1-3 นาที"]
   };
 
-  const container = document.getElementById("page1");
+  const container = document.getElementById("page2");
   container.innerHTML = `<h2>ข้อ 2: เลือกระยะเวลา</h2>`;
   labels[val].forEach((text, i) => {
     container.innerHTML += `<label><input type="radio" name="upperTime" value="${i}"> ${text}</label><br>`;
@@ -54,16 +67,17 @@ function nextUpperTimePage() {
   container.innerHTML += `
     <div class="nav-buttons">
       <button type="button" onclick="prevPage()">ย้อนกลับ</button>
-      <button type="button" onclick="showPage(2)">ถัดไป</button>
+      <button type="button" onclick="showPage(3)">ถัดไป</button>
     </div>`;
-  showPage(1);
+  showPage(2);
 }
 
+// ข้อ 3 → ข้อ 4
 function nextLowerTimePage() {
   const selected = document.querySelector('input[name="lowerPosture"]:checked');
   if (!selected) return alert("กรุณาเลือกท่าทางส่วนล่าง");
-  const val = parseInt(selected.value);
 
+  const val = parseInt(selected.value);
   const labels = {
     1: ["1-10 นาที", "11-32 นาที", "33 นาที"],
     2: ["1-11 นาที", "12 นาที"],
@@ -75,7 +89,7 @@ function nextLowerTimePage() {
     8: ["1-3 นาที", "4 นาที"]
   };
 
-  const container = document.getElementById("page3");
+  const container = document.getElementById("page4");
   container.innerHTML = `<h2>ข้อ 4: เลือกระยะเวลา</h2>`;
   labels[val].forEach((text, i) => {
     container.innerHTML += `<label><input type="radio" name="lowerTime" value="${i}"> ${text}</label><br>`;
@@ -83,74 +97,43 @@ function nextLowerTimePage() {
   container.innerHTML += `
     <div class="nav-buttons">
       <button type="button" onclick="prevPage()">ย้อนกลับ</button>
-      <button type="button" onclick="showPage(4)">ถัดไป</button>
+      <button type="button" onclick="showPage(5)">ถัดไป</button>
     </div>`;
-  showPage(3);
+  showPage(4);
 }
 
-form.addEventListener("submit", function (e) {
-  e.preventDefault();
+// ประมวลผล → ผลลัพธ์
+function calculateResult() {
+  const getVal = name => parseInt(document.querySelector(`input[name="${name}"]:checked`)?.value || 0);
 
-  const getVal = name => {
-    const el = document.querySelector(`input[name="${name}"]:checked`);
-    return el ? parseInt(el.value) : 0;
+  const upperMap = {
+    1: [0,0,1,2], 2: [0,0,1,2], 3: [1,2,3], 4: [1,2,3],
+    5: [2,3], 6: [2,3], 7: [2,3], 8: [3], 9: [3], 10: [3]
+  };
+  const lowerMap = {
+    1:[1,2,3],2:[2,3],3:[3],4:[3],5:[3],6:[2,3],7:[2,3],8:[2,3]
   };
 
-  const upScore = 1;  // ข้อ 1: ให้ 1 คะแนนตายตัว
+  const upPosture = getVal("upperPosture");
   const ut = getVal("upperTime");
-
-  const lowScore = 1; // ข้อ 3: ให้ 1 คะแนนตายตัว
+  const lowerPosture = getVal("lowerPosture");
   const lt = getVal("lowerTime");
-
   const f = getVal("force");
   const r = getVal("repetition");
   const t = getVal("twist");
 
-  // upperMap & lowerMap สำหรับข้อ 2 และข้อ 4
-  const upperMap = {
-    1: [0, 0, 1, 2], 2: [0, 0, 1, 2], 3: [1, 2, 3], 4: [1, 2, 3],
-    5: [2, 3], 6: [2, 3], 7: [2, 3], 8: [3], 9: [3], 10: [3]
-  };
-  const lowerMap = {
-    1: [1, 2, 3], 2: [2, 3], 3: [3], 4: [3], 5: [3],
-    6: [2, 3], 7: [2, 3], 8: [2, 3]
-  };
+  const utScore = upperMap[upPosture]?.[ut] ?? 0;
+  const ltScore = lowerMap[lowerPosture]?.[lt] ?? 0;
+  const total = (1 + utScore) * (1 + ltScore) + f + r + t;
 
-  const upPosture = getVal("upperPosture");
-  const lowPosture = getVal("lowerPosture");
+  let level="", image="";
+  if(total===1){ level="ระดับยอมรับได้"; image="ยอมรับได้.png"; }
+  else if(total<=3){ level="ระดับต่ำ"; image="ความเสี่ยงต่ำ.png"; }
+  else if(total<=7){ level="ระดับปานกลาง"; image="ปานกลาง.png"; }
+  else if(total<=14){ level="ระดับสูง"; image="ความเสี่ยงสูง.png"; }
+  else{ level="ระดับสูงมาก"; image="ความเสี่ยงสูงมาก.png"; }
 
-  const utScore = (upperMap[upPosture]?.[ut]) ?? 0;
-  const ltScore = (lowerMap[lowPosture]?.[lt]) ?? 0;
-
-  const total = (upScore + utScore) * (lowScore + ltScore) + f + r + t;
-
-  let level = "", image = "";
-  if (total === 1) {
-    level = "ระดับยอมรับได้ ท่าทางการปฏิบัติงานนั้นยังไม่ควรได้รับการปรับปรุง";
-    image = "ยอมรับได้.jpg";
-  } else if (total <= 3) {
-    level = "ระดับต่ำ ท่าทางการปฏิบัติงานนั้นควรได้รับการปรับปรุงเล็กน้อย";
-    image = "ต่ำ.jpg";
-  } else if (total <= 7) {
-    level = "ระดับปานกลาง ท่าทางการปฏิบัติงานนั้นควรได้รับการปรับปรุงเพิ่มเติม";
-    image = "ปานกลาง.jpg";
-  } else if (total <= 14) {
-    level = "ระดับสูง ท่าทางการปฏิบัติงานนั้นควรได้รับการปรับปรุงเร่งด่วน";
-    image = "สูง.jpg";
-  } else {
-    level = "ระดับสูงมาก ท่าทางการปฏิบัติงานนั้นควรได้รับการปรับปรุงในทันที";
-    image = "สูงมาก.jpg";
-  }
-
-document.getElementById("resultText").textContent = `คะแนนรวม: ${total} (${level})`;
-document.getElementById("resultImage").src = image;
-
-document.getElementById("resultText").textContent = `คะแนนรวม: ${total} (${level})`;
+  document.getElementById("resultText").textContent = `คะแนนรวม: ${total} (${level})`;
   document.getElementById("resultImage").src = image;
-  showPage(5);
-});
-window.onload = () => {
-  createImageOptions("upperPostureOptions", "upperPosture", 10, "บน");
-  createImageOptions("lowerPostureOptions", "lowerPosture", 8, "ล่าง");
-  showPage(0);
-};
+  showPage(6);
+}
